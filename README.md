@@ -1,0 +1,1 @@
+A demo of using k8s to manage SOA modules.
