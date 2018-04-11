@@ -6,6 +6,10 @@ public class Response implements Serializable {
     private int code;
     private String message;
 
+    public Response() {
+        this(0, "OK");
+    }
+
     public Response(int code, String message) {
         this.code = code;
         this.message = message;
