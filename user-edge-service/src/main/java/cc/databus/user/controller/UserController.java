@@ -1,7 +1,7 @@
 package cc.databus.user.controller;
 
+import cc.databus.thrift.user.dto.UserDTO;
 import cc.databus.thrift.user.UserInfo;
-import cc.databus.user.dto.UserDTO;
 import cc.databus.user.redis.RedisClient;
 import cc.databus.user.response.LoginResponse;
 import cc.databus.user.response.Response;
@@ -9,20 +9,16 @@ import cc.databus.user.thrift.ServiceProvider;
 import org.apache.commons.lang.StringUtils;
 import org.apache.thrift.TException;
 import org.apache.tomcat.util.buf.HexUtils;
-import org.apache.tomcat.util.security.MD5Encoder;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import sun.security.provider.MD5;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.MessageDigest;
 import java.util.Random;
 
-@RestController
+@Controller
+@RequestMapping("/user")
 public class UserController {
 
     public static final Response SUCCESS = new Response();
@@ -41,6 +37,7 @@ public class UserController {
     @Autowired
     private RedisClient redisClient;
 
+    @ResponseBody
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public Response login(@RequestParam("username") String username,
                           @RequestParam("password") String password) {
@@ -68,6 +65,12 @@ public class UserController {
         }
     }
 
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String loginHtml() {
+        return "login";
+    }
+
+    @ResponseBody
     @RequestMapping(value = "/sendVerifyCode", method = RequestMethod.POST)
     public Response sendVerifyCode(
             @RequestParam(value = "mobile", required = false) String mobile,
@@ -98,6 +101,7 @@ public class UserController {
 
     }
 
+    @ResponseBody
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public Response register(@RequestParam("username") String username,
                              @RequestParam("password") String password,
@@ -136,6 +140,13 @@ public class UserController {
         }
 
         return SUCCESS;
+    }
+
+
+    @ResponseBody
+    @RequestMapping(value = "/authentication", method = RequestMethod.POST)
+    public UserDTO authentication(@RequestHeader("token") String token) {
+        return redisClient.get(token);
     }
 
     private UserDTO toDTO(UserInfo userInfo) {

@@ -1,4 +1,4 @@
-package cc.databus.user.dto;
+package cc.databus.thrift.user.dto;
 
 import java.io.Serializable;
 
