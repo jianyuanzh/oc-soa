@@ -41,7 +41,7 @@ if __name__ == '__main__':
     handler = MessageServiceHandler()
     processor = MessageService.Processor(handler)
     print("main start")
-    transport = TSocket.TServerSocket("localhost", "9090")
+    transport = TSocket.TServerSocket("127.0.0.1", "9090")
     tfactory = TTransport.TFramedTransportFactory()
     pfactory = TBinaryProtocol.TBinaryProtocolAcceleratedFactory()
 

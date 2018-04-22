@@ -15,6 +15,10 @@ public class Response implements Serializable {
         this.message = message;
     }
 
+    public static Response exception(Exception e) {
+        return new Response(9999, e.getMessage());
+    }
+
     public int getCode() {
         return code;
     }
