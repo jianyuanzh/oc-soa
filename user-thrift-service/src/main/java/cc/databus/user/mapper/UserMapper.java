@@ -17,6 +17,12 @@ public interface UserMapper {
             "mobile, email from pe_user where username=#{username}")
     UserInfo getUserByName(@Param("username") String username);
 
+    @Select("select u.id, u.username, u.password, u.real_name as realName, u.mobile, u.email," +
+            " t.intro, t.description " +
+            " from pe_user as u and pe_teacher as t" +
+            " where u.id=#{id} and t.user_id=#{id}")
+    UserInfo getTeacherById(@Param("id") int id);
+
 
     @Insert("insert into pe_user (username, password, real_name, mobile, email)" +
             "values (#{u.username}, #{u.password}, #{u.realName}, #{u.mobile}, #{u.email})")

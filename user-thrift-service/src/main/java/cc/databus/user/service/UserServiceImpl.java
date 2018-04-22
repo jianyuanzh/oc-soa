@@ -2,6 +2,7 @@ package cc.databus.user.service;
 
 import cc.databus.thrift.user.UserInfo;
 import cc.databus.thrift.user.UserService;
+import cc.databus.thrift.user.dto.UserDTO;
 import cc.databus.user.mapper.UserMapper;
 import org.apache.thrift.TException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,11 @@ public class UserServiceImpl implements UserService.Iface {
     @Override
     public UserInfo getUserById(int id) throws TException {
         return userMapper.getUserById(id);
+    }
+
+    @Override
+    public UserInfo getTeacherById(int id) throws TException {
+        return userMapper.getTeacherById(id);
     }
 
     @Override
