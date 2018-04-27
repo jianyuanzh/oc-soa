@@ -5,14 +5,16 @@ import cc.databus.course.service.dto.CourseDTO;
 import cc.databus.course.thrift.ServiceProvider;
 import cc.databus.thrift.user.UserInfo;
 import cc.databus.thrift.user.dto.TeacherDTO;
+import com.alibaba.dubbo.config.annotation.Service;
 import org.apache.thrift.TException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Service
+@Component
+@Service(interfaceClass = ICourseService.class)
 public class CourseServiceImpl implements ICourseService {
 
     @Autowired
